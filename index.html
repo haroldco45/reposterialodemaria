@@ -33,9 +33,9 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-pan" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pan">0</span></div>
                 </div>
@@ -53,9 +53,9 @@
                 <p class="text-md font-bold text-green-700 mt-2">$13.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-torta" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-torta">0</span></div>
                 </div>
@@ -70,9 +70,9 @@
                 <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-pastel" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pastel">0</span></div>
                 </div>
@@ -86,9 +86,9 @@
             </div>
 
             <div class="space-y-4">
-                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="tel" id="celular" placeholder="Número de contacto" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 border rounded-lg outline-none">
+                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 border rounded-lg outline-none">
+                <input type="tel" id="celular" placeholder="Número de contacto" class="w-full p-3 border rounded-lg outline-none">
                 <select id="pago" class="w-full p-3 border rounded-lg bg-white">
                     <option value="Efectivo">Pagar en Efectivo</option>
                     <option value="Transferencia">Transferencia (Nequi/Bancolombia)</option>
@@ -98,7 +98,7 @@
                 <button onclick="enviarPedido()" id="btn-envio" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg flex items-center justify-center gap-2">
                     🛒 CONFIRMAR POR WHATSAPP
                 </button>
-                <p class="text-[10px] text-center text-gray-400 italic">Al confirmar, se solicitará tu ubicación para facilitar la entrega.</p>
+                <p class="text-[10px] text-center text-gray-400 italic">Se solicitará tu ubicación GPS para la entrega.</p>
             </div>
         </div>
     </div>
@@ -144,23 +144,25 @@
             const dir = document.getElementById('direccion').value;
             const cel = document.getElementById('celular').value;
             
-            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Selecciona al menos un producto.");
-            if (!nom || !dir || !cel) return alert("Por favor completa los datos para el envío.");
+            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega productos.");
+            if (!nom || !dir || !cel) return alert("Completa tus datos.");
 
-            // Suscripción Check (Invisible)
             const auth = document.getElementById('sub-check').innerText;
-            if(!auth.includes('2026')) return console.error('Suscripción expirada');
+            if(!auth.includes('2026')) return alert('Error de sistema.');
 
-            if (navigator.geolocation) {
-                document.getElementById('btn-envio').innerText = "📍 OBTENIENDO UBICACIÓN...";
+            // GPS REFORZADO
+            if ("geolocation" in navigator) {
+                document.getElementById('btn-envio').innerText = "📍 LOCALIZANDO...";
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        const gpsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-                        construirMensaje(gpsUrl);
+                    (pos) => {
+                        const linkGps = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                        construirMensaje(linkGps);
                     },
-                    () => { construirMensaje("No proporcionada por el cliente"); }
+                    (err) => {
+                        console.warn("GPS falló:", err.message);
+                        construirMensaje("No permitida/fallida");
+                    },
+                    { enableHighAccuracy: true, timeout: 5000 }
                 );
             } else {
                 construirMensaje("No soportada");
@@ -179,23 +181,12 @@
             if(pedido.torta > 0) detalle += `*${pedido.torta}* Torta Envinada ($${(pedido.torta*13000).toLocaleString('es-CO')})%0A`;
             if(pedido.pastel > 0) detalle += `*${pedido.pastel}* Pastelito Hojaldre ($${(pedido.pastel*PRECIO_PASTEL).toLocaleString('es-CO')})%0A`;
 
-            const totalF = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
+            const t = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
 
-            const mensaje = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A` +
-                            `*Cliente:* ${nom}%0A` +
-                            `*Dirección:* ${dir}%0A` +
-                            `*Celular:* ${cel}%0A` +
-                            `*Pago:* ${pag}%0A` +
-                            `*GPS:* ${gps}%0A` +
-                            `--------------------------%0A` +
-                            `*PRODUCTOS:*%0A${detalle}` +
-                            `--------------------------%0A` +
-                            `*TOTAL A PAGAR: $${totalF}*%0A` +
-                            `*Nota:* ${obs || 'Ninguna'}%0A%0A` +
-                            `_Vibras Positivas Auth Active_`;
+            const msj = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A*Cliente:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A*📍 GPS:* ${gps}%0A--------------------------%0A*PRODUCTOS:*%0A${detalle}--------------------------%0A*TOTAL: $${t}*%0A*Obs:* ${obs || 'Ninguna'}%0A%0A_Vibras Positivas Auth Active_`;
 
             document.getElementById('btn-envio').innerText = "🛒 CONFIRMAR POR WHATSAPP";
-            window.open(`https://wa.me/573117700431?text=${mensaje}`, '_blank');
+            window.open(`https://wa.me/573117700431?text=${msj}`, '_blank');
         }
     </script>
 </body>
