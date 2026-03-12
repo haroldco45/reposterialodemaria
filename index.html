@@ -29,13 +29,9 @@
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís (80g)</h2>
                 <p class="text-sm text-gray-500 mb-4 italic">Sabor tradicional hecho con amor.</p>
-                
-                <div class="grid grid-cols-1 gap-2 text-sm mb-4">
-                    <div class="bg-orange-50 p-2 rounded border border-orange-200 text-orange-800 text-xs">
-                        <strong>1 Unidad:</strong> $1.500 | <strong>5 Unid:</strong> $7.000 | <strong>11 Unid:</strong> $15.000
-                    </div>
+                <div class="bg-orange-50 p-2 rounded border border-orange-200 text-orange-800 text-xs mb-4">
+                    <strong>1 Unid:</strong> $1.500 | <strong>5 Unid:</strong> $7.000 | <strong>11 Unid:</strong> $15.000
                 </div>
-
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
@@ -56,7 +52,6 @@
                 </div>
                 <p class="text-xs text-gray-500 mt-1 italic">🕒 Entregas de 5pm en adelante</p>
                 <p class="text-md font-bold text-green-700 mt-2">$13.000 la unidad</p>
-                
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
                         <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
@@ -64,6 +59,23 @@
                         <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-torta">0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white card border border-orange-100">
+            <img src="pastelito.png" alt="Pastelitos de Hojaldre" class="product-img">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
+                <p class="text-sm text-gray-500 mb-2 italic">Crujientes y recién horneados.</p>
+                <p class="text-md font-bold text-green-700">$2.000 la unidad</p>
+                <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center space-x-4">
+                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
+                        <span id="cant-pastel" class="text-2xl font-bold">0</span>
+                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
+                    </div>
+                    <div class="text-lg font-bold text-orange-700">$<span id="sub-pastel">0</span></div>
                 </div>
             </div>
         </div>
@@ -99,7 +111,8 @@
     </div>
 
     <script>
-        let pedido = { pan: 0, torta: 0 };
+        let pedido = { pan: 0, torta: 0, pastel: 0 };
+        const PRECIO_PASTEL = 2000;
 
         function changeQty(item, val) {
             pedido[item] = Math.max(0, pedido[item] + val);
@@ -108,8 +121,7 @@
         }
 
         function calcPan() {
-            let total = 0;
-            let q = pedido.pan;
+            let total = 0; let q = pedido.pan;
             let p11 = Math.floor(q / 11); total += p11 * 15000; q %= 11;
             let p5 = Math.floor(q / 5); total += p5 * 7000; q %= 5;
             total += q * 1500;
@@ -119,10 +131,12 @@
         function actualizarTotales() {
             const subPan = calcPan();
             const subTorta = pedido.torta * 13000;
-            const total = subPan + subTorta;
+            const subPastel = pedido.pastel * PRECIO_PASTEL;
+            const total = subPan + subTorta + subPastel;
 
             document.getElementById('sub-pan').innerText = subPan.toLocaleString('es-CO');
             document.getElementById('sub-torta').innerText = subTorta.toLocaleString('es-CO');
+            document.getElementById('sub-pastel').innerText = subPastel.toLocaleString('es-CO');
             document.getElementById('total-general').innerText = total.toLocaleString('es-CO');
         }
 
@@ -133,14 +147,15 @@
             const pag = document.getElementById('pago').value;
             const obs = document.getElementById('obs').value;
 
-            if (pedido.pan + pedido.torta === 0) return alert("Agrega al menos un producto.");
+            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega al menos un producto.");
             if (!nom || !dir || !cel) return alert("Completa tus datos de envío.");
 
             let detalle = "";
             if(pedido.pan > 0) detalle += `*${pedido.pan}* Pan Caserito ($${calcPan().toLocaleString('es-CO')})%0A`;
             if(pedido.torta > 0) detalle += `*${pedido.torta}* Torta Envinada ($${(pedido.torta*13000).toLocaleString('es-CO')})%0A`;
+            if(pedido.pastel > 0) detalle += `*${pedido.pastel}* Pastelito Hojaldre ($${(pedido.pastel*PRECIO_PASTEL).toLocaleString('es-CO')})%0A`;
 
-            const totalF = (calcPan() + (pedido.torta * 13000)).toLocaleString('es-CO');
+            const totalF = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
 
             const mensaje = `*PEDIDO: REPOSTERIA LO DE MARIA*%0A%0A` +
                             `*Cliente:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A` +
