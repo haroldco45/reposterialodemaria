@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reposteria Lo de Maria - Pedidos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #fdf2f2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .btn-primary { background-color: #d4a373; transition: all 0.3s; }
+        .btn-primary:hover { background-color: #bc8a5f; transform: scale(1.05); }
+        .logo-container img { max-width: 200px; margin: 0 auto; }
+    </style>
+</head>
+<body class="p-4">
 
+    <div class="text-center mb-6 logo-container">
+        <img src="reposterialodemaria1.jpg" alt="Logo Reposteria Lo de Maria" class="rounded-full shadow-lg">
+        <h1 class="text-3xl font-bold mt-4 text-orange-900 italic">Reposteria Lo de Maria</h1>
+        <p class="text-gray-600">¡Los más ricos panes caseritos!</p>
+    </div>
+
+    <div class="max-w-md mx-auto bg-white p-6 card">
+        <div class="flex flex-col items-center mb-8 border-b pb-6">
+            <img src="panesagridulce.jpeg" alt="Panes Caseritos" class="w-full h-48 object-cover rounded-xl mb-4">
+            <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís (80g)</h2>
+            <p class="text-sm text-center text-gray-500 mb-4 italic">Sabor tradicional hecho con amor.</p>
+            
+            <div class="grid grid-cols-1 gap-2 text-sm mb-4 w-full">
+                <div class="bg-orange-50 p-2 rounded border border-orange-200 text-orange-800">
+                    <strong>1 Unidad:</strong> $1.500
+                </div>
+                <div class="bg-green-50 p-2 rounded border border-green-200 text-green-800">
+                    <strong>Oferta 5 Unidades:</strong> $7.000 (Ahorras $500)
+                </div>
+                <div class="bg-yellow-50 p-2 rounded border border-yellow-200 text-yellow-800">
+                    <strong>Super Oferta 11 Unidades:</strong> $15.000 (Ahorras $1.500)
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <button onclick="changeQty(-1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
+                <span id="cantidad" class="text-3xl font-bold">0</span>
+                <button onclick="changeQty(1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
+            </div>
+            <div class="mt-4 text-2xl font-extrabold text-green-600">
+                Total: $<span id="total-precio">0</span>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <h3 class="font-bold text-lg text-orange-900 border-b">Datos de Entrega</h3>
+            <input type="text" id="nombre" placeholder="Nombre completo" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+            <input type="text" id="direccion" placeholder="Dirección exacta" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+            <input type="tel" id="celular" placeholder="Celular" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+            <select id="pago" class="w-full p-3 border rounded-lg bg-white">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Transferencia">Transferencia Bancaria</option>
+            </select>
+            <textarea id="obs" placeholder="Observaciones (Ej: Sin mucho anís, portería...)" class="w-full p-3 border rounded-lg h-24"></textarea>
+
+            <button onclick="enviarPedido()" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg">
+                🛒 ENVIAR PEDIDO POR WHATSAPP
+            </button>
+        </div>
+    </div>
+
+    <div class="text-center mt-10 pb-10 text-xs text-gray-500">
+        <p>App desarrollada por <strong>Vibras Positivas</strong> © 2026</p>
+        <p>Derechos de autor: 3117700431</p>
+        <div id="sub-check" style="display:none;">vibras_active_2026</div>
+    </div>
+
+    <script>
+        let cantidad = 0;
+        const PRECIO_UNIDAD = 1500;
+
+        function changeQty(value) {
+            cantidad = Math.max(0, cantidad + value);
+            document.getElementById('cantidad').innerText = cantidad;
+            calcularTotal();
+        }
+
+        function calcularTotal() {
+            let total = 0;
+            let tempQty = cantidad;
+
+            // Lógica de ofertas automáticas
+            const promo11 = Math.floor(tempQty / 11);
+            total += promo11 * 15000;
+            tempQty %= 11;
+
+            const promo5 = Math.floor(tempQty / 5);
+            total += promo5 * 7000;
+            tempQty %= 5;
+
+            total += tempQty * PRECIO_UNIDAD;
+
+            document.getElementById('total-precio').innerText = total.toLocaleString('es-CO');
+            return total;
+        }
+
+        function enviarPedido() {
+            const nombre = document.getElementById('nombre').value;
+            const direccion = document.getElementById('direccion').value;
+            const celular = document.getElementById('celular').value;
+            const pago = document.getElementById('pago').value;
+            const obs = document.getElementById('obs').value;
+            const total = calcularTotal();
+
+            if (cantidad === 0) return alert("Por favor agrega al menos un pan.");
+            if (!nombre || !direccion || !celular) return alert("Por favor completa los datos de contacto.");
+
+            const mensaje = `*PEDIDO: REPOSTERIA LO DE MARIA*%0A%0A` +
+                            `*Cliente:* ${nombre}%0A` +
+                            `*Dirección:* ${direccion}%0A` +
+                            `*Celular:* ${celular}%0A` +
+                            `*Forma de Pago:* ${pago}%0A` +
+                            `--------------------------%0A` +
+                            `*Producto:* Pan Caserito (Queso, Dulce, Anís)%0A` +
+                            `*Cantidad:* ${cantidad} unidades%0A` +
+                            `*Observaciones:* ${obs || 'Ninguna'}%0A` +
+                            `--------------------------%0A` +
+                            `*TOTAL A PAGAR: $${total.toLocaleString('es-CO')}*%0A%0A` +
+                            `_Enviado desde la Web App de Vibras Positivas_`;
+
+            const whatsappUrl = `https://wa.me/573117700431?text=${mensaje}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
