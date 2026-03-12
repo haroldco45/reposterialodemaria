@@ -7,11 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #fdf2f2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .card { border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        .card { border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow: hidden; background: white; }
         .btn-primary { background-color: #d4a373; transition: all 0.3s; }
         .btn-primary:hover { background-color: #bc8a5f; transform: scale(1.05); }
         .logo-container img { max-width: 200px; margin: 0 auto; }
-        .product-img { height: 220px; width: 100%; object-fit: cover; object-position: center; }
+        .product-img { height: 240px; width: 100%; object-fit: cover; object-position: center; }
+        input, select, textarea { border: 1px solid #e5e7eb !important; }
     </style>
 </head>
 <body class="p-4">
@@ -24,7 +25,7 @@
 
     <div class="max-w-md mx-auto space-y-6">
         
-        <div class="bg-white card border border-orange-100">
+        <div class="card border border-orange-100">
             <img src="panesagridulce.jpeg" alt="Panes Caseritos" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís (80g)</h2>
@@ -33,67 +34,67 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">-</button>
                         <span id="cant-pan" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pan">0</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white card border border-orange-100">
+        <div class="card border border-orange-100">
             <img src="tortasenvinadas.jpeg" alt="Tortas Envinadas" class="product-img">
             <div class="p-6">
                 <div class="flex justify-between items-start">
                     <h2 class="text-xl font-bold text-gray-800">Torta Envinada</h2>
-                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded">ENVÍO GRATIS</span>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">ENVÍO GRATIS</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-1 italic">🕒 Entregas desde las 5pm</p>
                 <p class="text-md font-bold text-green-700 mt-2">$13.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">-</button>
                         <span id="cant-torta" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-torta">0</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white card border border-orange-100">
-            <img src="pastelito.jpeg" alt="Pastelitos de Hojaldre" class="product-img">
+        <div class="card border border-orange-100">
+            <img src="pastelito.jpg" alt="Pastelitos de Hojaldre" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
                 <p class="text-sm text-gray-500 mb-2 italic">Crujientes, doraditos y artesanales.</p>
                 <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
+                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">-</button>
                         <span id="cant-pastel" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
+                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200 transition-colors">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pastel">0</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white p-6 card border-t-4 border-orange-400">
+        <div class="p-6 card border-t-4 border-orange-400">
             <div class="flex justify-between items-center mb-6 pb-4 border-b">
                 <h3 class="text-xl font-bold text-gray-800">TOTAL A PAGAR:</h3>
                 <span class="text-2xl font-black text-green-600">$<span id="total-general">0</span></span>
             </div>
 
             <div class="space-y-4">
-                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="tel" id="celular" placeholder="Número de contacto" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <select id="pago" class="w-full p-3 border rounded-lg bg-white">
+                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="tel" id="celular" placeholder="Número de celular" class="w-full p-3 rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <select id="pago" class="w-full p-3 rounded-lg bg-white">
                     <option value="Efectivo">Pagar en Efectivo</option>
                     <option value="Transferencia">Transferencia (Nequi/Bancolombia)</option>
                 </select>
-                <textarea id="obs" placeholder="Alguna instrucción adicional..." class="w-full p-3 border rounded-lg h-24"></textarea>
+                <textarea id="obs" placeholder="Alguna instrucción adicional..." class="w-full p-3 rounded-lg h-24"></textarea>
 
                 <button onclick="enviarPedido()" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg">
                     🛒 CONFIRMAR POR WHATSAPP
@@ -160,7 +161,8 @@
                             `*PRODUCTOS:*%0A${detalle}` +
                             `--------------------------%0A` +
                             `*TOTAL A PAGAR: $${totalF}*%0A` +
-                            `*Nota:* ${obs || 'Ninguna'}`;
+                            `*Nota:* ${obs || 'Ninguna'}%0A%0A` +
+                            `_Enviado desde la Web App_`;
 
             window.open(`https://wa.me/573117700431?text=${mensaje}`, '_blank');
         }
