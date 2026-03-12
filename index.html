@@ -11,7 +11,8 @@
         .btn-primary { background-color: #d4a373; transition: all 0.3s; }
         .btn-primary:hover { background-color: #bc8a5f; transform: scale(1.05); }
         .logo-container img { max-width: 200px; margin: 0 auto; }
-        .product-img { height: 180px; width: 100%; object-fit: cover; }
+        /* Ajuste para que la imagen siempre se vea centrada y bonita */
+        .product-img { height: 200px; width: 100%; object-fit: cover; object-position: center; }
     </style>
 </head>
 <body class="p-4">
@@ -19,7 +20,7 @@
     <div class="text-center mb-6 logo-container">
         <img src="reposterialodemaria1.png" alt="Logo Reposteria Lo de Maria" class="rounded-full shadow-lg border-4 border-white">
         <h1 class="text-3xl font-bold mt-4 text-orange-900 italic">Reposteria Lo de Maria</h1>
-        <p class="text-gray-600">¡Los más ricos sabores caseros!</p>
+        <p class="text-gray-600 font-semibold">¡Sabor casero y tradicional!</p>
     </div>
 
     <div class="max-w-md mx-auto space-y-6">
@@ -28,15 +29,14 @@
             <img src="panesagridulce.jpeg" alt="Panes Caseritos" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís (80g)</h2>
-                <p class="text-sm text-gray-500 mb-4 italic">Sabor tradicional hecho con amor.</p>
                 <div class="bg-orange-50 p-2 rounded border border-orange-200 text-orange-800 text-xs mb-4">
-                    <strong>1 Unid:</strong> $1.500 | <strong>5 Unid:</strong> $7.000 | <strong>11 Unid:</strong> $15.000
+                    <strong>Oferta:</strong> 5 Unid: $7.000 | 11 Unid: $15.000
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-pan" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pan">0</span></div>
                 </div>
@@ -50,13 +50,13 @@
                     <h2 class="text-xl font-bold text-gray-800">Torta Envinada</h2>
                     <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded">ENVÍO GRATIS</span>
                 </div>
-                <p class="text-xs text-gray-500 mt-1 italic">🕒 Entregas de 5pm en adelante</p>
-                <p class="text-md font-bold text-green-700 mt-2">$13.000 la unidad</p>
+                <p class="text-xs text-gray-500 mt-1 italic">🕒 Entregas desde las 5pm</p>
+                <p class="text-md font-bold text-green-700 mt-2">$13.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-torta" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-torta">0</span></div>
                 </div>
@@ -64,50 +64,49 @@
         </div>
 
         <div class="bg-white card border border-orange-100">
-            <img src="pastelito.png" alt="Pastelitos de Hojaldre" class="product-img">
+            <img src="https://img.freepik.com/foto-gratis/hojaldres-recien-horneados-bandeja_23-2148822031.jpg" alt="Pastelitos de Hojaldre" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
-                <p class="text-sm text-gray-500 mb-2 italic">Crujientes y recién horneados.</p>
-                <p class="text-md font-bold text-green-700">$2.000 la unidad</p>
+                <p class="text-sm text-gray-500 mb-2 italic">Crujientes, doraditos y artesanales.</p>
+                <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
                         <span id="cant-pastel" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-200 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pastel">0</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white p-6 card">
+        <div class="bg-white p-6 card border-t-4 border-orange-400">
             <div class="flex justify-between items-center mb-6 pb-4 border-b">
-                <h3 class="text-xl font-bold text-gray-800">TOTAL:</h3>
+                <h3 class="text-xl font-bold text-gray-800">TOTAL A PAGAR:</h3>
                 <span class="text-2xl font-black text-green-600">$<span id="total-general">0</span></span>
             </div>
 
             <div class="space-y-4">
-                <h3 class="font-bold text-lg text-orange-900">Datos de Entrega</h3>
-                <input type="text" id="nombre" placeholder="Nombre completo" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="text" id="direccion" placeholder="Dirección exacta" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
-                <input type="tel" id="celular" placeholder="Celular" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
+                <input type="tel" id="celular" placeholder="Número de contacto" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-300 outline-none">
                 <select id="pago" class="w-full p-3 border rounded-lg bg-white">
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Transferencia">Transferencia Bancaria / Nequi</option>
+                    <option value="Efectivo">Pagar en Efectivo</option>
+                    <option value="Transferencia">Transferencia (Nequi/Bancolombia)</option>
                 </select>
-                <textarea id="obs" placeholder="Observaciones..." class="w-full p-3 border rounded-lg h-24"></textarea>
+                <textarea id="obs" placeholder="Alguna instrucción adicional..." class="w-full p-3 border rounded-lg h-24"></textarea>
 
                 <button onclick="enviarPedido()" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg">
-                    🛒 ENVIAR PEDIDO POR WHATSAPP
+                    🛒 CONFIRMAR POR WHATSAPP
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="text-center mt-10 pb-10 text-xs text-gray-500">
+    <div class="text-center mt-10 pb-10 text-xs text-gray-400">
         <p>App desarrollada por <strong>Vibras Positivas</strong> © 2026</p>
         <p>Derechos de autor: 3117700431</p>
-        <div id="sub-check" style="display:none;">vibras_active_2026</div>
+        <div style="display:none;">vibras_active_2026</div>
     </div>
 
     <script>
@@ -147,8 +146,8 @@
             const pag = document.getElementById('pago').value;
             const obs = document.getElementById('obs').value;
 
-            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega al menos un producto.");
-            if (!nom || !dir || !cel) return alert("Completa tus datos de envío.");
+            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Selecciona al menos un producto.");
+            if (!nom || !dir || !cel) return alert("Por favor completa los datos para el envío.");
 
             let detalle = "";
             if(pedido.pan > 0) detalle += `*${pedido.pan}* Pan Caserito ($${calcPan().toLocaleString('es-CO')})%0A`;
@@ -157,14 +156,14 @@
 
             const totalF = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
 
-            const mensaje = `*PEDIDO: REPOSTERIA LO DE MARIA*%0A%0A` +
-                            `*Cliente:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A` +
+            const mensaje = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A` +
+                            `*Nombre:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A` +
                             `--------------------------%0A` +
                             `*PRODUCTOS:*%0A${detalle}` +
                             `--------------------------%0A` +
                             `*TOTAL A PAGAR: $${totalF}*%0A` +
-                            `*Obs:* ${obs || 'Ninguna'}%0A%0A` +
-                            `_Desarrollado por Vibras Positivas_`;
+                            `*Nota:* ${obs || 'Ninguna'}%0A%0A` +
+                            `_Enviado desde la Web App_`;
 
             window.open(`https://wa.me/573117700431?text=${mensaje}`, '_blank');
         }
