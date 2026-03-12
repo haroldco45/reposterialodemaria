@@ -11,8 +11,7 @@
         .btn-primary { background-color: #d4a373; transition: all 0.3s; }
         .btn-primary:hover { background-color: #bc8a5f; transform: scale(1.05); }
         .logo-container img { max-width: 200px; margin: 0 auto; }
-        /* Ajuste para que la imagen siempre se vea centrada y bonita */
-        .product-img { height: 200px; width: 100%; object-fit: cover; object-position: center; }
+        .product-img { height: 220px; width: 100%; object-fit: cover; object-position: center; }
     </style>
 </head>
 <body class="p-4">
@@ -34,9 +33,9 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('pan', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
                         <span id="cant-pan" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('pan', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pan">0</span></div>
                 </div>
@@ -54,9 +53,9 @@
                 <p class="text-md font-bold text-green-700 mt-2">$13.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('torta', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
                         <span id="cant-torta" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('torta', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-torta">0</span></div>
                 </div>
@@ -64,16 +63,16 @@
         </div>
 
         <div class="bg-white card border border-orange-100">
-            <img src="https://img.freepik.com/foto-gratis/hojaldres-recien-horneados-bandeja_23-2148822031.jpg" alt="Pastelitos de Hojaldre" class="product-img">
+            <img src="pastelito.jpeg" alt="Pastelitos de Hojaldre" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
                 <p class="text-sm text-gray-500 mb-2 italic">Crujientes, doraditos y artesanales.</p>
                 <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
-                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">-</button>
+                        <button onclick="changeQty('pastel', -1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">-</button>
                         <span id="cant-pastel" class="text-2xl font-bold">0</span>
-                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold">+</button>
+                        <button onclick="changeQty('pastel', 1)" class="w-10 h-10 rounded-full bg-gray-100 text-2xl font-bold hover:bg-gray-200">+</button>
                     </div>
                     <div class="text-lg font-bold text-orange-700">$<span id="sub-pastel">0</span></div>
                 </div>
@@ -106,7 +105,6 @@
     <div class="text-center mt-10 pb-10 text-xs text-gray-400">
         <p>App desarrollada por <strong>Vibras Positivas</strong> © 2026</p>
         <p>Derechos de autor: 3117700431</p>
-        <div style="display:none;">vibras_active_2026</div>
     </div>
 
     <script>
@@ -162,8 +160,7 @@
                             `*PRODUCTOS:*%0A${detalle}` +
                             `--------------------------%0A` +
                             `*TOTAL A PAGAR: $${totalF}*%0A` +
-                            `*Nota:* ${obs || 'Ninguna'}%0A%0A` +
-                            `_Enviado desde la Web App_`;
+                            `*Nota:* ${obs || 'Ninguna'}`;
 
             window.open(`https://wa.me/573117700431?text=${mensaje}`, '_blank');
         }
