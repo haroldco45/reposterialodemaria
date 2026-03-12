@@ -47,7 +47,7 @@
             <div class="p-6">
                 <div class="flex justify-between items-start">
                     <h2 class="text-xl font-bold text-gray-800">Torta Envinada</h2>
-                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded">ENVÍO GRATIS</span>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">ENVÍO GRATIS</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-1 italic">🕒 Entregas desde las 5pm</p>
                 <p class="text-md font-bold text-green-700 mt-2">$13.000 unidad</p>
@@ -66,7 +66,7 @@
             <img src="pastelito.jpg" alt="Pastelitos de Hojaldre" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
-                <p class="text-sm text-gray-500 mb-2 italic">Crujientes y artesanales.</p>
+                <p class="text-sm text-gray-500 mb-2 italic">Crujientes, doraditos y artesanales.</p>
                 <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
@@ -81,7 +81,7 @@
 
         <div class="p-6 card border-t-4 border-orange-400">
             <div class="flex justify-between items-center mb-6 pb-4 border-b">
-                <h3 class="text-xl font-bold text-gray-800">TOTAL:</h3>
+                <h3 class="text-xl font-bold text-gray-800">TOTAL A PAGAR:</h3>
                 <span class="text-2xl font-black text-green-600">$<span id="total-general">0</span></span>
             </div>
             <div class="space-y-4">
@@ -92,7 +92,7 @@
                     <option value="Efectivo">Efectivo</option>
                     <option value="Transferencia">Transferencia</option>
                 </select>
-                <textarea id="obs" placeholder="Instrucciones..." class="w-full p-3 border rounded-lg h-24"></textarea>
+                <textarea id="obs" placeholder="Instrucciones adicionales..." class="w-full p-3 border rounded-lg h-24"></textarea>
 
                 <button onclick="enviarPedido()" id="btn-envio" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg">
                     🛒 CONFIRMAR WHATSAPP
@@ -103,8 +103,8 @@
 
     <div class="text-center mt-10 pb-10 text-xs text-gray-400">
         <p>App desarrollada por <strong>Vibras Positivas</strong> © 2026</p>
-        <p>3117700431</p>
-        <div id="sub-check" style="display:none;">vibras_active_auth_2026_3117700431</div>
+        <p>Derechos de autor: 3117700431</p>
+        <div id="sub-check" style="display:none; visibility:hidden;">vibras_active_auth_2026_3117700431</div>
     </div>
 
     <script>
@@ -142,14 +142,11 @@
             const dir = document.getElementById('direccion').value;
             const cel = document.getElementById('celular').value;
             
-            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega productos.");
-            if (!nom || !dir || !cel) return alert("Completa los datos.");
-
-            const auth = document.getElementById('sub-check').innerText;
-            if(!auth.includes('2026')) return alert('Error de sistema.');
+            if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega productos al pedido.");
+            if (!nom || !dir || !cel) return alert("Completa tus datos de envío.");
 
             if ("geolocation" in navigator) {
-                document.getElementById('btn-envio').innerText = "📍 LOCALIZANDO...";
+                document.getElementById('btn-envio').innerText = "📍 OBTENIENDO GPS...";
                 navigator.geolocation.getCurrentPosition(
                     (pos) => {
                         const link = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
@@ -175,9 +172,22 @@
             if(pedido.torta > 0) detalle += `*${pedido.torta}* Torta Envinada ($${(pedido.torta*13000).toLocaleString('es-CO')})%0A`;
             if(pedido.pastel > 0) detalle += `*${pedido.pastel}* Pastelito Hojaldre ($${(pedido.pastel*PRECIO_PASTEL).toLocaleString('es-CO')})%0A`;
 
-            const t = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
+            const totalFinal = (calcPan() + (pedido.torta * 13000) + (pedido.pastel * PRECIO_PASTEL)).toLocaleString('es-CO');
 
-            const msj = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A*Cliente:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A*📍 GPS:* ${gps}%0A--------------------------%0A*PRODUCTOS:*%0A${detalle}--------------------------%0A*TOTAL: $${t}*%0A*Obs:* ${obs || 'Ninguna'}%0A%0A_Vibras Positivas Auth Active_`;
+            // MENSAJE FINAL CON FIRMA OBLIGATORIA
+            const msj = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A` +
+                        `*Cliente:* ${nom}%0A` +
+                        `*Dirección:* ${dir}%0A` +
+                        `*Celular:* ${cel}%0A` +
+                        `*Pago:* ${pag}%0A` +
+                        `*📍 Ubicación GPS:* ${gps}%0A` +
+                        `--------------------------%0A` +
+                        `*PRODUCTOS:*%0A${detalle}` +
+                        `--------------------------%0A` +
+                        `*TOTAL: $${totalFinal}*%0A` +
+                        `*Nota:* ${obs || 'Ninguna'}%0A%0A` +
+                        `*App desarrollada por Vibras Positivas*%0A` +
+                        `*Derechos de autor (3117700431)*`;
 
             document.getElementById('btn-envio').innerText = "🛒 CONFIRMAR WHATSAPP";
             window.open(`https://wa.me/573117700431?text=${msj}`, '_blank');
