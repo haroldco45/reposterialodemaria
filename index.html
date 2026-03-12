@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #fdf2f2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .card { border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        .card { border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow: hidden; background: white; }
         .btn-primary { background-color: #d4a373; transition: all 0.3s; }
         .btn-primary:hover { background-color: #bc8a5f; transform: scale(1.05); }
         .logo-container img { max-width: 200px; margin: 0 auto; }
@@ -24,10 +24,10 @@
 
     <div class="max-w-md mx-auto space-y-6">
         
-        <div class="bg-white card border border-orange-100">
+        <div class="card border border-orange-100">
             <img src="panesagridulce.jpeg" alt="Panes Caseritos" class="product-img">
             <div class="p-6">
-                <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís (80g)</h2>
+                <h2 class="text-xl font-bold text-gray-800">Pan de Queso, Dulce y Anís</h2>
                 <div class="bg-orange-50 p-2 rounded border border-orange-200 text-orange-800 text-xs mb-4">
                     <strong>Oferta:</strong> 5 Unid: $7.000 | 11 Unid: $15.000
                 </div>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="bg-white card border border-orange-100">
+        <div class="card border border-orange-100">
             <img src="tortasenvinadas.jpeg" alt="Tortas Envinadas" class="product-img">
             <div class="p-6">
                 <div class="flex justify-between items-start">
@@ -62,11 +62,11 @@
             </div>
         </div>
 
-        <div class="bg-white card border border-orange-100">
-            <img src="pastelito.jpeg" alt="Pastelitos de Hojaldre" class="product-img">
+        <div class="card border border-orange-100">
+            <img src="pastelito.jpg" alt="Pastelitos de Hojaldre" class="product-img">
             <div class="p-6">
                 <h2 class="text-xl font-bold text-gray-800">Pastelitos de Hojaldre</h2>
-                <p class="text-sm text-gray-500 mb-2 italic">Crujientes, doraditos y artesanales.</p>
+                <p class="text-sm text-gray-500 mb-2 italic">Crujientes y artesanales.</p>
                 <p class="text-md font-bold text-green-700">$2.000 unidad</p>
                 <div class="flex items-center justify-between mt-4">
                     <div class="flex items-center space-x-4">
@@ -79,34 +79,32 @@
             </div>
         </div>
 
-        <div class="bg-white p-6 card border-t-4 border-orange-400">
+        <div class="p-6 card border-t-4 border-orange-400">
             <div class="flex justify-between items-center mb-6 pb-4 border-b">
-                <h3 class="text-xl font-bold text-gray-800">TOTAL A PAGAR:</h3>
+                <h3 class="text-xl font-bold text-gray-800">TOTAL:</h3>
                 <span class="text-2xl font-black text-green-600">$<span id="total-general">0</span></span>
             </div>
-
             <div class="space-y-4">
-                <input type="text" id="nombre" placeholder="¿A nombre de quién?" class="w-full p-3 border rounded-lg outline-none">
-                <input type="text" id="direccion" placeholder="Dirección de entrega" class="w-full p-3 border rounded-lg outline-none">
-                <input type="tel" id="celular" placeholder="Número de contacto" class="w-full p-3 border rounded-lg outline-none">
+                <input type="text" id="nombre" placeholder="Nombre" class="w-full p-3 border rounded-lg outline-none">
+                <input type="text" id="direccion" placeholder="Dirección" class="w-full p-3 border rounded-lg outline-none">
+                <input type="tel" id="celular" placeholder="Celular" class="w-full p-3 border rounded-lg outline-none">
                 <select id="pago" class="w-full p-3 border rounded-lg bg-white">
-                    <option value="Efectivo">Pagar en Efectivo</option>
-                    <option value="Transferencia">Transferencia (Nequi/Bancolombia)</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Transferencia">Transferencia</option>
                 </select>
-                <textarea id="obs" placeholder="Alguna instrucción adicional..." class="w-full p-3 border rounded-lg h-24"></textarea>
+                <textarea id="obs" placeholder="Instrucciones..." class="w-full p-3 border rounded-lg h-24"></textarea>
 
-                <button onclick="enviarPedido()" id="btn-envio" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg flex items-center justify-center gap-2">
-                    🛒 CONFIRMAR POR WHATSAPP
+                <button onclick="enviarPedido()" id="btn-envio" class="w-full py-4 rounded-xl text-white font-bold text-xl btn-primary shadow-lg">
+                    🛒 CONFIRMAR WHATSAPP
                 </button>
-                <p class="text-[10px] text-center text-gray-400 italic">Se solicitará tu ubicación GPS para la entrega.</p>
             </div>
         </div>
     </div>
 
     <div class="text-center mt-10 pb-10 text-xs text-gray-400">
         <p>App desarrollada por <strong>Vibras Positivas</strong> © 2026</p>
-        <p>Derechos de autor: 3117700431</p>
-        <div id="sub-check" style="display:none; visibility:hidden;">vibras_active_auth_2026_3117700431</div>
+        <p>3117700431</p>
+        <div id="sub-check" style="display:none;">vibras_active_auth_2026_3117700431</div>
     </div>
 
     <script>
@@ -128,14 +126,14 @@
         }
 
         function actualizarTotales() {
-            const subPan = calcPan();
-            const subTorta = pedido.torta * 13000;
-            const subPastel = pedido.pastel * PRECIO_PASTEL;
-            const total = subPan + subTorta + subPastel;
+            const sP = calcPan();
+            const sT = pedido.torta * 13000;
+            const sPas = pedido.pastel * PRECIO_PASTEL;
+            const total = sP + sT + sPas;
 
-            document.getElementById('sub-pan').innerText = subPan.toLocaleString('es-CO');
-            document.getElementById('sub-torta').innerText = subTorta.toLocaleString('es-CO');
-            document.getElementById('sub-pastel').innerText = subPastel.toLocaleString('es-CO');
+            document.getElementById('sub-pan').innerText = sP.toLocaleString('es-CO');
+            document.getElementById('sub-torta').innerText = sT.toLocaleString('es-CO');
+            document.getElementById('sub-pastel').innerText = sPas.toLocaleString('es-CO');
             document.getElementById('total-general').innerText = total.toLocaleString('es-CO');
         }
 
@@ -145,23 +143,19 @@
             const cel = document.getElementById('celular').value;
             
             if (pedido.pan + pedido.torta + pedido.pastel === 0) return alert("Agrega productos.");
-            if (!nom || !dir || !cel) return alert("Completa tus datos.");
+            if (!nom || !dir || !cel) return alert("Completa los datos.");
 
             const auth = document.getElementById('sub-check').innerText;
             if(!auth.includes('2026')) return alert('Error de sistema.');
 
-            // GPS REFORZADO
             if ("geolocation" in navigator) {
                 document.getElementById('btn-envio').innerText = "📍 LOCALIZANDO...";
                 navigator.geolocation.getCurrentPosition(
                     (pos) => {
-                        const linkGps = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-                        construirMensaje(linkGps);
+                        const link = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                        construirMensaje(link);
                     },
-                    (err) => {
-                        console.warn("GPS falló:", err.message);
-                        construirMensaje("No permitida/fallida");
-                    },
+                    () => { construirMensaje("No proporcionada"); },
                     { enableHighAccuracy: true, timeout: 5000 }
                 );
             } else {
@@ -185,7 +179,7 @@
 
             const msj = `*NUEVO PEDIDO: LO DE MARIA*%0A%0A*Cliente:* ${nom}%0A*Dirección:* ${dir}%0A*Celular:* ${cel}%0A*Pago:* ${pag}%0A*📍 GPS:* ${gps}%0A--------------------------%0A*PRODUCTOS:*%0A${detalle}--------------------------%0A*TOTAL: $${t}*%0A*Obs:* ${obs || 'Ninguna'}%0A%0A_Vibras Positivas Auth Active_`;
 
-            document.getElementById('btn-envio').innerText = "🛒 CONFIRMAR POR WHATSAPP";
+            document.getElementById('btn-envio').innerText = "🛒 CONFIRMAR WHATSAPP";
             window.open(`https://wa.me/573117700431?text=${msj}`, '_blank');
         }
     </script>
